@@ -65,6 +65,7 @@ resource "google_compute_subnetwork" "psc_subnet" {
 # Firewalls
 #------------------------------
 resource "google_compute_firewall" "lb_health_check" {
+  count       = var.http_lb_disabled ? 0 : 1
   name        = "allow-health-check"
   network     = google_compute_network.k8s_vpc.name
   description = "Allow health checks from GCP LBs"
